@@ -30,8 +30,10 @@ Trial = list(scdict.keys())
 reginvest = Regimes
 domaininvest = list(domainodes.keys())[:1]
 
-vardict = proc.masterdissolvedspecies("Saturated")
-gvarnames = list(vardict.keys()) + ["Nitrogen", "TOC"]
+species = proc.speciesdict("Saturated")
+gvarnames = ["DOC","DO","Nitrate", "Ammonium","Nitrogen", "TOC"]
+
+Trial.remove("43")
 
 row = []
 for Reg in reginvest:
@@ -40,11 +42,11 @@ for Reg in reginvest:
             domadd = domain + "_"
         else:
             domadd = ""
-        for t in ["0", "2", "5", "1"]:
-            directory = "D:/Saturated_flow/EGUGoldschmidtdataset6/" + domadd + Reg + "AR_" + t + "/"
+        for t in ["0", "1", "2", "5"]:
+            directory = "E:/Saturated_flow/EGUGoldschmidtdataset6/" + domadd + Reg + "AR_" + t + "/"
             #directory = "X:/Saturated_flow/changedkindox_transient/" + domadd + Reg + "AR_" + t + "/"#change directory as per flow regime
             print (Reg, domain, t)
-            for j in Trial[8:]:
+            for j in Trial:
                 data = np.load(directory + "NS-A"+j+"/NS-A"+j+"_df.npy")
                 if t == "0":
                     massfluxin, massfluxout = sssa.calcmassfluxnew(data, 0, -1, 0, -1, gvarnames, "Saturated")
@@ -54,16 +56,16 @@ for Reg in reginvest:
                 reldelmassflux = 100*delmassflux/massfluxin
                 normmassflux = massfluxout/massfluxin
                 for g in gvarnames:
-                    row.append([j,scdict[j]['Het'], scdict[j]['Anis'], domain, Reg, t, g, delmassflux[gvarnames.index(g)], reldelmassflux[gvarnames.index(g)], normmassflux[gvarnames.index(g)]])
+                    row.append([j,scdict[j]['Het'], scdict[j]['Anis'], domain, Reg, t, g, massfluxin[gvarnames.index(g)], massfluxout[gvarnames.index(g)],delmassflux[gvarnames.index(g)], reldelmassflux[gvarnames.index(g)], normmassflux[gvarnames.index(g)]])
 
-massfluxdata = pd.DataFrame.from_records (row, columns = ["Trial", "Variance", "Anisotropy", "Domain", "Regime", "Time_series", "Chem", "delmassflux", "reldelmassflux", "normmassflux"])
+massfluxdata = pd.DataFrame.from_records (row, columns = ["Trial", "Variance", "Anisotropy", "Domain", "Regime", "Time_series", "Chem", "massflux_in", "massflux_out","delmassflux", "reldelmassflux", "normmassflux"])
 
 #Load tracer data
-path_tr_data = "Z:/tracer_combined_05032020.csv"
+path_tr_data = "Y:/Home/khurana/4. Publications/Restructuring/Paper1/Figurecodes/tracer_combined_05032020.csv"
 tr_data = pd.read_csv(path_tr_data, sep = "\t")
 tr_data.columns
 
 #Merge the datasets and save
 cdata = pd.merge(massfluxdata, tr_data[["Trial", "Regime", "Time", "fraction"]], on = ["Regime", "Trial"])
 
-cdata.to_csv("//msg-filer2/scratch_60_days/khurana/massflux_Original_complete.csv", sep = "\t")
+cdata.to_csv("Y:/Home/khurana/4. Publications/Restructuring/Paper1/Figurecodes/massflux_Original_complete_28012021.csv", sep = "\t", index=False)

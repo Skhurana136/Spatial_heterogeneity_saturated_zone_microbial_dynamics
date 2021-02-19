@@ -8,7 +8,7 @@ Created on Thu Sep  3 12:05:06 2020
 import pandas as pd
 
 #Load data
-path_data = "//msg-filer2/scratch_60_days/khurana/massflux_Original_complete.csv"
+path_data = "Y:/Home/khurana/4. Publications/Restructuring/Paper1/Figurecodes/massflux_Original_complete.csv"
 data = pd.read_csv(path_data, sep = "\t")
 data.columns
 data.dtypes
