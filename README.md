@@ -1,4 +1,8 @@
-# BG_Khurana_spatial_heterogeneity
+# Spatial_heterogeneity_saturated_zone_microbial_dynamics
+This work is associated with the following publication submitted for peer-review:
+Khurana et al. 2021. Predicting the impact of spatial heterogeneity on microbial redox dynamics and nutrient cycling in the subsurface. Biogeosciences.
+Registration number: bg-2021-72
+
 - This repository contains the following:
 	- Python scripts used for processing simulation results, further analysis and generating graphs for the publication.
 	- Files used for running simulations in OGSBRNS
@@ -54,9 +58,11 @@ The processed results with some metadata information:
 	- Column **Conc_in**: Flux averaged concentration of species at the inlet (uM).
 	- Column **Conc_out**: Flux averaged concentration of species at the outlet (uM).
 	- Column **Normconc**: Ratio of Conc_in and Conc_out.
+	- Column **base**: Normconc in the base case.
 	- Column **k**: Pseudo first order reaction rate constant (d-1).
 	- Column **tau**: Characteristic reaction time scale (d).
 	- Column **Da**: Estimated Damkohler number.
+	- Refer to massflux_comparison_steadystate_BG.csv for the description of the rest of the columns.
 - tracer_combined_05032020.csv
 	- Column **Time**: Breakthrough time (days)
 	- Column **fraction**: Ratio of breakthrough time in heterogeneous scenario and that in homogeneous scenario (base case)

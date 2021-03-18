@@ -192,13 +192,13 @@ green_patch = mpatches.Patch(color="g", label='0 < log$_{10}$Da < 0.5', alpha = 
 red_patch = mpatches.Patch(color="indianred", label= 'log$_{10}$Da > 0.5', alpha = 0.5)
 patchlist = [blue_patch, orange_patch, green_patch, red_patch, grey_line, grey_dot]
 
-path_da_data= os.path.join(results_dir, "Da_29012021_95pcloss.csv")
+path_da_data= os.path.join(results_dir, "Da_BG.csv")
 #path_da_data= os.path.join(results_dir, "massflux_comparison_steadystate_BG.csv")
 da = pd.read_csv(path_da_data)
 gvarnames = ["DO", "Nitrogen", "DOC"]
 data = da[da['Chem'].isin (gvarnames)]
 
-data["logDa"] = np.log10(data.Da63)
+data["logDa"] = np.log10(data.Da)
 data.loc[data["logDa"] < -1, "PeDamark"] = 0
 data.loc[(data["logDa"] > -1) & (data["logDa"] < 0), "PeDamark"] = 1
 data.loc[(data["logDa"] > 0) & (data["logDa"] <0.5), "PeDamark"] = 2
@@ -660,13 +660,13 @@ plt.savefig(picname, dpi = 300, bbox_inches = 'tight', pad_inches = 0.1)
 
 #Figure S6: Distribution of concentration derived Damkohler number
 
-path_da_data = os.path.join(results_dir, "Da_29012021_95pcloss.csv")
+path_da_data = os.path.join(results_dir, "Da_BG.csv")
 da = pd.read_csv(path_da_data)
 da.columns
 da.shape
 gvarnames = ["DO", "Nitrogen", "TOC"]
 finaldata = da[da['Chem'].isin (gvarnames)]
-finaldata["logDa"] = np.log10(finaldata.Da63)
+finaldata["logDa"] = np.log10(finaldata.Da)
 #Show distribution of Da numbers and then ratio of Da and Pe
 
 plt.title('Distribution of Damk$\ddot{o}$hler number', **titlekw)
@@ -695,7 +695,7 @@ green_patch = mpatches.Patch(color="g", label="Medium flow", alpha = 0.5)
 red_patch = mpatches.Patch(color="indianred", label="Slow flow", alpha = 0.5)
 patchlist = [blue_patch, green_patch, red_patch, grey_square, grey_dot, grey_triangle]
 
-path_da_data = "Y:/Home/khurana/4. Publications/Restructuring/Paper1/Figurecodes/Da_29012021_95pcloss.csv"
+path_da_data = os.path.join(parent_dir, "Results", "Da_BG.csv")
 da = pd.read_csv(path_da_data)#, sep = "\t")
 da.columns
 da.shape
@@ -733,14 +733,14 @@ greyline = mlines.Line2D([], [], linestyle = 'dashed', color='grey', markersize=
 blue_dot = mlines.Line2D([], [], linestyle = '', marker = 'o', color='steelblue', alpha = 0.5, markersize=15, label='Simulation result')
 patchlist = [orangeline, greenline, greyline, blue_dot]
 
-path_da_data = os.path.join(results_dir, "Da_29012021_95pcloss.csv")
+path_da_data = os.path.join(results_dir, "Da_BG.csv")
 da = pd.read_csv(path_da_data)#, sep = "\t")
 da.columns
 da.shape
 da['%fraction'] = da['fraction']*100
 gvarnames = ["DO", "Nitrogen", "TOC"]
 
-da["logDa"] = np.log10(da.Da63)
+da["logDa"] = np.log10(da.Da)
 da.loc[da["logDa"] < -1, "PeDamark"] = "0"
 da.loc[(da["logDa"] > -1) & (da["logDa"] < 0), "PeDamark"] = "1"
 da.loc[(da["logDa"] > 0) & (da["logDa"] <0.5), "PeDamark"] = "2"

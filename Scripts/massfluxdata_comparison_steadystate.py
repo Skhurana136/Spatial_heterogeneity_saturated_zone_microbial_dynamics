@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 
 #Load data
-parent_dir = "E:\Zenodo_spatial_heterogeneity\Results"
+parent_dir = "E:\Zenodo_spatial_heterogeneity"
 path_data = os.path.join(parent_dir, "massflux_steadystate_BG.csv")
 data = pd.read_csv(path_data)
 data.columns

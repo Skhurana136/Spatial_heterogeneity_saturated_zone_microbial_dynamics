@@ -53,5 +53,5 @@ tr_data['Regime'] = tr_data['Regime'].replace({'Equal':'Medium'})
 #Merge the datasets and save
 cdata = pd.merge(massfluxdata, tr_data[["Trial", "Regime", "Time", "fraction"]], on = ["Regime", "Trial"])
 
-massflux_path = os.path.join(parent_dir, "Results", "massflux_steadystate_BG.csv")
+massflux_path = os.path.join(parent_dir, "massflux_steadystate_BG.csv")
 cdata.to_csv(massflux_path, index=False)

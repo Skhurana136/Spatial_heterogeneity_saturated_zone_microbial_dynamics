@@ -50,7 +50,7 @@ for Reg in reginvest:
 massdata = pd.DataFrame.from_records (row, columns = ["Trial", "Variance", "Anisotropy", "Regime", "Chem", "Mass", "Contribution"])
 
 #Load tracer data
-tracer_data_path = os.path.join(parent_dir, "Results", "tracer_combined_05032020.csv")
+tracer_data_path = os.path.join(parent_dir, "tracer_combined_05032020.csv")
 tr_data = pd.read_csv(tracer_data_path, sep = "\t")
 tr_data.columns
 tr_data['Regime'] = tr_data['Regime'].replace({'Equal':'Medium'})
@@ -58,5 +58,5 @@ tr_data['Regime'] = tr_data['Regime'].replace({'Equal':'Medium'})
 #Merge the datasets and save
 cdata = pd.merge(massdata, tr_data[["Trial", "Regime", "Time", "fraction"]], on = ["Regime", "Trial"])
 
-biomass_path = os.path.join(parent_dir, "Results", "biomass_steadystate_BG.csv")
+biomass_path = os.path.join(parent_dir, "biomass_steadystate_BG.csv")
 cdata.to_csv(biomass_path, index=False)
